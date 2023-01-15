@@ -4,7 +4,7 @@ const mongoose = require("mongoose");
 
 const { NODE_ENV, DBUSER, DBPASSWORD, DBNAME, DBPORT, DBHOST } = process.env;
 
-const isProduction = NODE_ENV === "development";
+const isProduction = NODE_ENV === "production";
 const connectionStringProd = process.env.DBURL_PROD
 const connectionStringDev = process.env.DBURL;
 
