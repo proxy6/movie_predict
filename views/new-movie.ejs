@@ -1,0 +1,118 @@
+<%- include('partials/header') %>
+ <!--**********************************
+            Sidebar start
+        ***********************************-->
+        <div class="deznav">
+            <div class="deznav-scroll">
+				<div class="main-profile">
+					<!-- <div class="image-bx">
+						<img src="images/Untitled-1.jpg" alt="">
+						<a href="javascript:void(0);"><i class="fa fa-cog" aria-hidden="true"></i></a>
+					</div> -->
+					<h5 class="name"><span class="font-w400">Hello,</span> <%=user.role%></h5>
+					<p class="email"><%=user.email%></p>
+				</div>
+		
+		
+		<%- include('partials/sidebar') %>
+		<!--**********************************
+            Content body start
+        ***********************************-->
+        <div class="content-body">
+			<div class="container-fluid">
+				<div class="form-head mb-sm-5 mb-3 d-flex flex-wrap align-items-center">
+					<h2 class="font-w600 title mb-2 me-auto ">New Movie Entry</h2>
+				</div>
+                <form class="row g-3" id="addMovie">
+                    <div class="col-md-6">
+                        <label class="form-label">Movie Title</label>
+                        <input type="text" name= "title" class="form-control">
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">Movie ID</label>
+                        <input type="text" value="<%=movieNumber + 1 %>" name= "movieID" class="form-control" aria-label="readonly input example" readonly>
+                    </div>
+
+                    <div class="col-md-6">
+                      <label class="form-label">Director</label>
+                      <select name="director" id="" class="form-control">
+                        <option value="">--Select--</option>
+                        <%for(let [index, element] of directors.entries()){%>
+                        <option value="<%=element.name%>"><%=element.name%></option>
+                        <%}%>
+                      </select>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">Producer</label>
+                        <select name="producer" id="" class="form-control">
+                          <option value="">--Select--</option>
+                          <%for(let [index, element] of producers.entries()){%>
+                          <option value="<%=element.name%>"><%=element.name%></option>
+                          <%}%>
+                        </select>
+                      </div>
+                      <div class="col-md-6">
+                        <label class="form-label">Actor</label>
+                        <select name="actor" id="" class="form-control">
+                          <option value="">--Select--</option>
+                          <%for(let [index, element] of actors.entries()){%>
+                          <option value="<%=element.name%>"><%=element.name%></option>
+                          <%}%>
+                        </select>
+                      </div>
+                      <div class="col-md-6">
+                        <label class="form-label">Actress</label>
+                        <select name="actress" id="" class="form-control">
+                          <option value="">--Select--</option>
+                          <%for(let [index, element] of actress.entries()){%>
+                          <option value="<%=element.name%>"><%=element.name%></option>
+                          <%}%>
+                        </select>
+                      </div>
+                      <div class="col-md-6">
+                        <label class="form-label">Music Director</label>
+                        <select name="musicDirector" id="" class="form-control">
+                          <option value="">--Select--</option>
+                          <%for(let [index, element] of music.entries()){%>
+                          <option value="<%=element.name%>"><%=element.name%></option>
+                          <%}%>
+                        </select>
+                      </div>
+                      <div class="col-md-6">
+                        <label class="form-label">Writer</label>
+                        <select name="writer" id="" class="form-control">
+                          <option value="">--Select--</option>
+                          <%for(let [index, element] of writers.entries()){%>
+                          <option value="<%=element.name%>"><%=element.name%></option>
+                          <%}%>
+                        </select>
+                      </div>
+                      <div class="col-md-6">
+                        <label class="form-label">Budget($)</label>
+                        <input type="number" name= "buget" class="form-control">
+                    </div>
+                      <div class="col-md-6">
+                        <label class="form-label">Release Date</label>
+                        <input name="realeaseDate" type="date" class="form-control">
+                      </div>
+                    
+                    <div class="col-12">
+                      <button type="submit" class="btn btn-primary">Submit</button>
+                    </div>
+                    </div>
+                  </form>
+		    </div>
+		</div>
+	</div>
+    </div>
+</div>	 	
+        <!--**********************************
+            Content body end
+        ***********************************-->
+
+		
+		<%- include('partials/footer') %>
+		
+
+
+   

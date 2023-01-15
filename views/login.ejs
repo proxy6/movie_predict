@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en" class="h-100">
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="" />
+	<meta name="author" content="" />
+	<meta name="robots" content="" />
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+	<meta name="description" content="Iprospa - - Admin Backoffice" />
+	<meta property="og:title" content="Iprospa - - Admin Backoffice" />
+	<meta property="og:description" content="Iprospa - - Admin Backoffice" />
+	<meta property="og:image" content="page-error-404.html" />
+	<meta name="format-detection" content="telephone=no">
+    <title>Iprospa - - Admin Backoffice </title>
+    <!-- Favicon icon -->
+    <link rel="icon" type="image/png" sizes="16x16" href="images/favicon.png">
+	<link href="vendor/bootstrap-select/dist/css/bootstrap-select.min.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+
+</head>
+
+<body class="vh-100">
+    <div class="authincation h-100">
+        <div class="container h-100">
+            <div class="row justify-content-center h-100 align-items-center">
+                <div class="col-md-6">
+                    <div class="authincation-content">
+                        <div class="row no-gutters">
+                            <div class="col-xl-12">
+                                <div class="auth-form">
+									<div class="text-center mb-3">
+										<!-- <img src="/images/cropped-iprospa-web-logo.png" alt=""> -->
+									</div>
+                                    <h4 class="text-center mb-4">Sign in your account</h4>
+                                    <%if(error){%>
+                                        <div class="alert alert-danger solid alert-end-icon alert-dismissible fade show">
+                                    
+                                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="btn-close">
+                                            </button>
+                                            <strong>Error!</strong> <%= error%>
+                                        </div>
+                                 
+                                    <%}%>
+                                    <form action="/dashboard" method="post">
+                                        <div class="form-group">
+                                            <label class="mb-1"><strong>Email</strong></label>
+                                            <input name='email' type="email" class="form-control" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="mb-1"><strong>Password</strong></label>
+                                            <input name="password" type="password" class="form-control"  required>
+                                        </div>
+                                        <div class="text-center">
+                                            <button type="submit" class="btn btn-primary btn-block">Sign Me In</button>
+                                        </div>
+                                    </form>
+                                    <!-- <div class="new-account mt-3">
+                                        <p>Don't have an account? <a class="text-primary" href="page-register.html">Sign up</a></p>
+                                    </div> -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!--**********************************
+        Scripts
+    ***********************************-->
+    <!-- Required vendors -->
+    <script src="vendor/global/global.min.js"></script>
+	<script src="vendor/bootstrap-select/dist/js/bootstrap-select.min.js"></script>
+    <script src="js/custom.js"></script>
+	<script src="js/deznav-init.js"></script> 
+<script src="js/demo.js"></script>
+<script src="js/styleSwitcher.js"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery.form/3.51/jquery.form.min.js"></script>
+<script>
+ 
+    //  function login(){
+    //     console.log('hereee')
+    //     let email = document.getElementById('email')
+    //     let pass =  document.getElementById('password')
+    //     console.log(email)
+    //     axios.post('https://api.iprospa.net/user/login', {
+    //         email,
+    //         pass
+    //     }).then(function (response) {
+    //         console.log(response);
+    //     })
+    //     .catch(function (error) {
+    //         console.log(error);
+    //     });
+    // }
+
+	$('#login').submit(function(e) {
+ 	var dataString = $(this).serialize();
+		console.log(dataString)
+ 	// alert(dataString); return false;
+	 $.ajax({
+   	type: "POST",
+   	url: "/login",
+   	data: dataString,
+    success: function (response) {
+        if (response.success = 1) {
+            // alert("You will now be redirected.");
+            // req.session.userid = response.data._id;
+            console.log(response.data._id)
+            window.location = "/";
+        }
+    },
+    failure: function (response) {
+                alert(response.message);
+    }
+
+
+//    	success: function () {
+// 	 $("#contact_form").html("<div id='message'></div>");
+// 	 $("#message")
+// 	   .html("<h2>Contact Form Submitted!</h2>")
+// 	   .append("<p>We will be in touch soon.</p>")
+// 	   .hide()
+// 	   .fadeIn(1500, function () {
+// 		 $("#message").append(
+// 		   "<img id='checkmark' src='images/check.png' />"
+// 		 );
+// 	   });
+//    }
+ });
+
+ e.preventDefault();
+});
+
+
+</script>
+</body>
+</html>

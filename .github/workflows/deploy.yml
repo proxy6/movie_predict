@@ -1,0 +1,48 @@
+name: Deploy Movie Predict
+on:
+  push:
+    branches: [ main ]
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Copy file via scp
+      uses: appleboy/scp-action@master
+      env:
+        HOST: ${{ secrets.SSH_HOST }}
+        USERNAME: ${{ secrets.SSH_USER }}
+        PASSWORD: ${{secrets.SSH_PASS}}
+      with:
+        source: "./"
+        target: ${{ secrets.PATH }}
+        port: ${{secrets.SSH_PORT}}
+        password: ${{secrets.SSH_PASS}}
+        use_insecure_cipher: true
+       
+    - name: Executing remote command
+      uses: appleboy/ssh-action@master
+      with:
+        HOST: ${{ secrets.SSH_HOST }}
+        USERNAME: ${{ secrets.SSH_USER }}
+        PORT: ${{secrets.SSH_PORT}}
+        PASSWORD: ${{secrets.SSH_PASS}}
+        use_insecure_cipher: true
+        script: |
+          cd ${{secrets.PATH}} && \
+          # install NPM packages
+          npm i && \
+          sudo npm install -g pm2 && \
+          # remove git folders for security
+          rm -rf .git && \
+          rm -rf .github && \
+          rm -rf .vscode && \
+          rm -rf .gitignore && \
+          rm -rf .eslintrc.json && \
+          rm -rf .env.example && \
+          rm -rf sync.js && \
+          # upload new ENV
+          echo "${{secrets.ENV}}" > .env && \
+          # restart server
+          pm2 startOrReload ecosystem.config.js

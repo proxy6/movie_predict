@@ -1,0 +1,103 @@
+<%- include('partials/header') %>
+ <!--**********************************
+            Sidebar start
+        ***********************************-->
+        <div class="deznav">
+            <div class="deznav-scroll">
+				<div class="main-profile">
+					<!-- <div class="image-bx">
+						<img src="images/Untitled-1.jpg" alt="">
+						<a href="javascript:void(0);"><i class="fa fa-cog" aria-hidden="true"></i></a>
+					</div> -->
+					<h5 class="name"><span class="font-w400">Hello,</span> <%=user.fname%></h5>
+					<p class="email"><%=user.email%></p>
+				</div>
+		
+		
+		<%- include('partials/sidebar') %>
+		<!--**********************************
+            Content body start
+        ***********************************-->
+        <div class="content-body">
+			<div class="container-fluid">
+				<div class="form-head  d-flex flex-wrap align-items-center">
+					<h2 class="font-w600 title me-auto ">Dashboard</h2>
+				</div>
+				<div class="row">
+						<div class="col-xl-4 col-sm-6 m-t35" >
+							<div class="card card-coin" style="background-color: brown;">
+								<div class="card-body text-center">
+									<h2 class="text-white mb-2 font-w600">Total Directors</h2>
+									<p class="mb-0 fs-14 text-white">
+										<%=directors%> 
+									</p>	
+								</div>
+							</div>
+						</div>
+						<div class="col-xl-4 col-sm-6 m-t35">
+							<div class="card card-coin" style="background-color: rgb(56, 165, 42);">
+								<div class="card-body text-center">
+									<h2 class="text-white mb-2 font-w600">Total Porducers</h2>
+									<p class="mb-0 fs-14 text-white">
+										<%=producers%> 
+									</p>	
+								</div>
+							</div>
+						</div>
+						<div class="col-xl-4 col-sm-6 m-t35">
+							<div class="card card-coin" style="background-color: rgb(42, 126, 165);">
+								<div class="card-body text-center">
+									<h2 class="text-white mb-2 font-w600">Total Actors</h2>
+									<p class="mb-0 fs-14 text-white">
+										<%=actors%> 
+									</p>	
+								</div>
+							</div>
+						</div>
+						<div class="col-xl-4 col-sm-6 m-t35">
+							<div class="card card-coin" style="background-color: rgb(99, 42, 165);">
+								<div class="card-body text-center">
+									<h2 class="text-white mb-2 font-w600">Total Actresses</h2>
+									<p class="mb-0 fs-14 text-white">
+										<%=actress%> 
+									</p>	
+								</div>
+							</div>
+						</div>
+						<div class="col-xl-4 col-sm-6 m-t35">
+							<div class="card card-coin" style="background-color: rgb(165, 42, 124);">
+								<div class="card-body text-center">
+									<h2 class="text-white mb-2 font-w600">Total Writers</h2>
+									<p class="mb-0 fs-14 text-white">
+										<%=writers%> 
+									</p>	
+								</div>
+							</div>
+						</div>
+						<div class="col-xl-4 col-sm-6 m-t35">
+							<div class="card card-coin" style="background-color: rgb(165, 132, 42);">
+								<div class="card-body text-center">
+									<h2 class="text-white mb-2 font-w600">Total Music Directors</h2>
+									<p class="mb-0 fs-14 text-white">
+										<%=music%> 
+									</p>	
+								</div>
+							</div>
+						</div>
+
+				
+				
+				</div>
+				
+			</div>
+		</div>	 	
+        <!--**********************************
+            Content body end
+        ***********************************-->
+
+		
+		<%- include('partials/footer') %>
+		
+
+
+   

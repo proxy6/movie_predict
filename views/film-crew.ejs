@@ -1,0 +1,183 @@
+<%- include('partials/header') %>
+ <!--**********************************
+            Sidebar start
+        ***********************************-->
+        <div class="deznav">
+            <div class="deznav-scroll">
+				<div class="main-profile">
+					<!-- <div class="image-bx">
+						<img src="images/Untitled-1.jpg" alt="">
+						<a href="javascript:void(0);"><i class="fa fa-cog" aria-hidden="true"></i></a>
+					</div> -->
+					<h5 class="name"><span class="font-w400">Hello,</span> <%=user.role%></h5>
+					<p class="email"><%=user.email%></p>
+				</div>
+		
+		
+		<%- include('partials/sidebar') %>
+		<!--**********************************
+            Content body start
+        ***********************************-->
+        <div class="content-body">
+			<div class="container-fluid">
+				<div class="form-head mb-sm-5 mb-3 d-flex flex-wrap align-items-center">
+					<h2 class="font-w600 title mb-2 me-auto ">Film Crew Entry</h2>
+				</div>
+                <form class="row g-3" id="addCrew">
+                    <div class="col-md-6">
+                      <label class="form-label">Crew</label>
+                      <select name="type" id="" class="form-control">
+                        <option value="">--Select--</option>
+                        <option value="Actor">Actor</option>
+                        <option value="Actress">Actress</option>
+                        <option value="Director">Director</option>
+                        <option value="Producer">Producer</option>
+                        <option value="Writer">Writer</option>
+                        <option value="Music Director">Music Director</option>
+                      </select>
+                    </div>
+                    <div class="col-md-6">
+                      <label class="form-label">Name</label>
+                      <input type="text" name= "name" class="form-control" placeholder="">
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label">Movie</label>
+                        <input type="text" name= "movie" class="form-control" placeholder="">
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label">Rating</label>
+                        <select name="rating[]" class="form-control">
+                          <option value="">--Select--</option>
+                          <option value="1">1</option>
+                          <option value="2">2</option>
+                          <option value="3">3</option>
+                          <option value="4">4</option>
+                          <option value="5">5</option>
+                          <option value="6">6</option>
+                          <option value="7">7</option>
+                          <option value="8">8</option>
+                          <option value="9">9</option>
+                          <option value="10">10</option>
+                        </select>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label">Budget ($)</label>
+                        <input type="number" name= "budget[]" class="form-control" placeholder="e.g 100000" >
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label">Movie</label>
+                        <input type="text" name= "movie" class="form-control" placeholder="">
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label">Rating</label>
+                        <select name="rating[]" class="form-control">
+                          <option value="">--Select--</option>
+                          <option value="1">1</option>
+                          <option value="2">2</option>
+                          <option value="3">3</option>
+                          <option value="4">4</option>
+                          <option value="5">5</option>
+                          <option value="6">6</option>
+                          <option value="7">7</option>
+                          <option value="8">8</option>
+                          <option value="9">9</option>
+                          <option value="10">10</option>
+                        </select>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label">Budget ($)</label>
+                        <input type="number" name= "budget[]" class="form-control" placeholder="e.g 100000" >
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label">Movie</label>
+                        <input type="text" name= "movie[]" class="form-control" placeholder="">
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label">Rating</label>
+                        <select name="rating[]" class="form-control">
+                          <option value="">--Select--</option>
+                          <option value="1">1</option>
+                          <option value="2">2</option>
+                          <option value="3">3</option>
+                          <option value="4">4</option>
+                          <option value="5">5</option>
+                          <option value="6">6</option>
+                          <option value="7">7</option>
+                          <option value="8">8</option>
+                          <option value="9">9</option>
+                          <option value="10">10</option>
+                        </select>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label">Budget ($)</label>
+                        <input type="number" name= "budget[]" class="form-control" placeholder="e.g 100000" >
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label">Movie</label>
+                        <input type="text" name= "movie[]" class="form-control" placeholder="">
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label">Rating</label>
+                        <select name="rating[]" class="form-control">
+                          <option value="">--Select--</option>
+                          <option value="1">1</option>
+                          <option value="2">2</option>
+                          <option value="3">3</option>
+                          <option value="4">4</option>
+                          <option value="5">5</option>
+                          <option value="6">6</option>
+                          <option value="7">7</option>
+                          <option value="8">8</option>
+                          <option value="9">9</option>
+                          <option value="10">10</option>
+                        </select>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label">Budget ($)</label>
+                        <input type="number" name= "budget[]" class="form-control" placeholder="e.g 100000" >
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label">Movie</label>
+                        <input type="text" name= "movie[]" class="form-control" placeholder="">
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label">Rating</label>
+                        <select name="rating[]" class="form-control">
+                          <option value="">--Select--</option>
+                          <option value="1">1</option>
+                          <option value="2">2</option>
+                          <option value="3">3</option>
+                          <option value="4">4</option>
+                          <option value="5">5</option>
+                          <option value="6">6</option>
+                          <option value="7">7</option>
+                          <option value="8">8</option>
+                          <option value="9">9</option>
+                          <option value="10">10</option>
+                        </select>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label">Budget ($)</label>
+                        <input type="number" name= "budget[]" class="form-control" placeholder="e.g 100000" >
+                    </div>
+                    
+                    <div class="col-12">
+                      <button type="submit" class="btn btn-primary">Submit</button>
+                    </div>
+                    </div>
+                  </form>
+		    </div>
+		</div>
+	</div>
+    </div>
+</div>	 	
+        <!--**********************************
+            Content body end
+        ***********************************-->
+
+		
+		<%- include('partials/footer') %>
+		
+
+
+   

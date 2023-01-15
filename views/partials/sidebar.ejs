@@ -1,0 +1,33 @@
+<ul class="metismenu" id="menu">
+    <li class="nav-label first">Main Menu</li>
+    <li><a href="/">
+            <i class="flaticon-144-layout"></i>
+            <span class="nav-text">Dashboard</span>
+        </a>
+    </li>
+    <li class="nav-label">Movie Prediction</li>
+    <% if(user.role == "Admin"){%>
+    <li><a href="/crew">
+        <i class="flaticon-077-menu-1"></i>
+            <span class="nav-text">Film Crew Entry</span>
+        </a>
+    </li>
+    <%}%>
+    
+    <li><a href="/new-movie">
+            <i class="flaticon-061-puzzle"></i>
+            <span class="nav-text">New Movie Entry</span>
+        </a>
+    </li>
+    <li><a href="/predict-movie">
+        <i class="flaticon-061-puzzle"></i>
+        <span class="nav-text">Check Prediction</span>
+    </a>
+</li>
+</ul>
+
+</div>
+</div>
+<!--**********************************
+Sidebar end
+***********************************-->

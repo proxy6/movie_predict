@@ -1,0 +1,272 @@
+
+        <!--**********************************
+            Footer start
+        ***********************************-->
+        <div class="footer">
+            <div class="copyright">
+                <p>Copyright Iprospa</a> 2021</p>
+            </div>
+        </div>
+        <!--**********************************
+            Footer end
+        ***********************************-->
+    </div>
+    <!--**********************************
+        Main wrapper end
+    ***********************************-->
+
+    <!--**********************************
+        Scripts
+    ***********************************-->
+    <!-- Required vendors -->
+	<script src="/vendor/global/global.min.js"></script>
+
+	<script src="/vendor/bootstrap-select/dist/js/bootstrap-select.min.js"></script>
+	<!-- <script src="/vendor/chart.js/Chart.bundle.min.js"></script> -->
+	<!-- Chart piety plugin files -->
+    <script src="/vendor/peity/jquery.peity.min.js"></script>
+	
+	<!-- Apex Chart -->
+	<!-- <script src="/vendor/apexchart/apexchart.js"></script> -->
+	
+	<!-- Dashboard 1 -->
+	<script src="/js/dashboard/dashboard-1.js"></script>
+	<script src="/vendor/owl-carousel/owl.carousel.js"></script>
+    
+	<script src="/js/custom.js"></script>
+	<script src="/js/deznav-init.js"></script> 
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <!-- <script src="/js/demo.js"></script> -->
+<!-- Using For Demo Only, Remove From Package Level  --> 
+	<!-- <script src="js/demo.js"></script> -->
+    <!-- <script src="/js/styleSwitcher.js"></script> -->
+    
+    <script>
+          $('#approveWithdraw').click(function(e) {
+            dataString = {
+                txId: $('#txId').val()
+            }
+         // alert(dataString); return false;
+         $.ajax({
+           type: "POST",
+           url: "/approve-withdraw",
+           data: dataString,
+        success: function (response) {
+            if(response == "Deposit Approved")
+            $("#approve-alert").html("<div id='message' class='alert alert-primary solid alert-end-icon alert-dismissible fade show'>");
+            $("#message")
+            .html("<button type='button' class='btn-close' data-bs-dismiss='alert' aria-label='btn-close'> </button> Withdraw Approved.")
+            .hide()
+            .fadeIn(300, function () {
+                $("#message")
+            });
+            location.reload(true)
+        }
+});
+
+e.preventDefault();
+});
+
+        $('#addCrew').submit(function(e) {
+         var dataString = $(this).serialize();
+         console.log(dataString)
+         $.ajax({
+           type: "POST",
+           url: "/add-crew",
+           data: dataString,
+        success: function (response) {
+            if(response){
+                console.log(response)
+                Swal.fire({
+                icon: 'success',
+                title: 'Film Crew Added',
+                showConfirmButton: false,
+                timer: 1000
+            })
+            setTimeout(location.reload.bind(location), 1000);
+           
+            }
+           
+            // $("#approve-alert").html("<div id='message' class='alert alert-primary solid alert-end-icon alert-dismissible fade show'>");
+            // $("#message")
+            // .html("<button type='button' class='btn-close' data-bs-dismiss='alert' aria-label='btn-close'> </button> Deposit Approved.")
+            // .hide()
+            // .fadeIn(300, function () {
+            //     $("#message")
+            // });
+            // location.reload(true)
+        }
+});
+
+e.preventDefault();
+});
+        
+        $('#addMovie').submit(function(e) {
+         var dataString = $(this).serialize();
+         console.log(dataString)
+         $.ajax({
+           type: "POST",
+           url: "/add-movie",
+           data: dataString,
+        success: function (response) {
+            if(response){
+                console.log(response)
+                if(response == "invalid date"){
+                    Swal.fire({
+                    icon: 'error',
+                    title: 'Invalid Date',
+                    showConfirmButton: false,
+                    timer: 3000,
+                    text: 'The movie release year must not be less than 2023',
+            })
+                  
+                }else{
+                    Swal.fire({
+                    icon: 'success',
+                    title: 'New Movie Added',
+                    showConfirmButton: false,
+                    timer: 1000,
+               
+            })
+                    setTimeout(location.reload.bind(location), 1000);
+                }
+            }
+        }
+});
+
+e.preventDefault();
+});
+
+        $('#checkPrediction').submit(function(e) {
+         var dataString = $(this).serialize();
+         console.log(dataString)
+         $.ajax({
+           type: "POST",
+           url: "/check-prediction",
+           data: dataString,
+        success: function (resp) {
+            let response = resp.split('&')
+            if(response[0] == "Flop"){
+                console.log(response)
+                Swal.fire({
+                icon: 'error',
+                title: 'Flop',
+                text: `The movie with ID ${response[1]} will probably flop based on historical data`,
+                })
+            // setTimeout(location.reload.bind(location), 1000);
+           
+            }else if(response[0] == "Hit"){
+                Swal.fire({
+                icon: 'success',
+                title: 'Hit',
+                text: `The movie with ID ${response[1]} will hit based on historical data`,
+                })
+            }else {
+                Swal.fire({
+                icon: 'success',
+                title: 'Super Hit',
+                text: `The movie with ID ${response[1]} will super hit based on historical data`,
+                })
+            }
+        }
+});
+
+e.preventDefault();
+});
+
+
+        $('#createVoucher').submit(function(e) {
+         var dataString = $(this).serialize();
+         $.ajax({
+           type: "POST",
+           url: "/create-voucher",
+           data: dataString,
+        success: function (response) {
+            if(response == "Voucher Created Suceessfully")
+            $("#approve-alert").html("<div id='message' class='alert alert-primary solid alert-end-icon alert-dismissible fade show'>");
+            $("#message")
+            .html("<button type='button' class='btn-close' data-bs-dismiss='alert' aria-label='btn-close'> </button> Deposit Approved.")
+            .hide()
+            .fadeIn(300, function () {
+                $("#message")
+            });
+            location.reload(true)
+        }
+});
+
+e.preventDefault();
+});
+
+// $(function confirmRejection(){
+//     location.reload(true)
+//     $.ajax({
+//            type: "POST",
+//            url: "/reject-deposit",
+//            data: dataString,
+//         success: function (response) {
+//             if(response == "Deposit Rejected")
+//             location.reload(true)
+//         }
+// });  
+// })
+
+// $(function confirmRejection() {
+//         console.log(e)
+//             // dataString = {
+//             //     txId: $('#txId').val()
+//             // }
+//          // alert(dataString); return false;
+//          $.ajax({
+//            type: "POST",
+//            url: "/reject-deposit",
+//            data: dataString,
+//         success: function (response) {
+//             if(response == "Deposit Rejected")
+//             location.reload(true)
+//         }
+// });
+
+// e.preventDefault();
+
+// })
+    </script>
+    <script>
+        function copyText(element) {
+            console.log(element)
+            /* Copy text into clipboard */
+            navigator.clipboard.writeText(element);
+            // alert("Address Copied")
+            Swal.fire({
+                icon: 'success',
+                title: 'Wallet Address Copied',
+                showConfirmButton: false,
+                timer: 1500
+            
+            })
+        }
+        function confirmReject(element){
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, reject it!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Transaction has been rejected',
+                        showConfirmButton: false,
+                        timer: 1500
+                }) 
+                // confirmRejection(element);
+                }
+            })
+            
+        }      
+    </script>
+
+</body>
+</html>
