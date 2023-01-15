@@ -4,7 +4,8 @@
   "description": "a movie prediction app for predicting which movie a new movie rating. Technology Node js, mongodb and a data mining. IMDB datasets was used for developmental purposes",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node app.js",
   },
   "repository": {
     "type": "git",
