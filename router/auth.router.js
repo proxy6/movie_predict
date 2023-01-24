@@ -4,6 +4,7 @@ const { dashboard} = require('../controller/dashboard');
 const { LogIn, Signup, getSignupPage, getLoginPage } = require('../controller/auth.controller');
 
 router.get('/dashboard', LogIn, dashboard)
+router.get('/home', dashboard)
 router.get('/signup', getSignupPage)
 router.get('/login', getLoginPage)
 router.post('/dashboard', LogIn, dashboard)

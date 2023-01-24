@@ -27,7 +27,6 @@ exports.Signup = async (req, res, next)=> {
     const hashedPassword = await HashPassword(password)
     try{
         const existingUser = await User.findOne({email})
-        console.log(existingUser)
         if(existingUser) return res.render('signup', {error: "User Email Exist Already"}) 
         const user = await User.create({
             email,

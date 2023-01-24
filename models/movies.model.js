@@ -22,7 +22,7 @@ const movieSchema = new mongoose.Schema({
     actress: {
         type: String,
     },
-    musicDirector: {
+    castingDirector: {
         type: String,
     },
     writer: {

@@ -16,10 +16,6 @@ const crewSchema = new mongoose.Schema({
         rating:{
             type: Number,
            
-        },
-        budget:{
-            type: Number,
-         
         }
     }],
 

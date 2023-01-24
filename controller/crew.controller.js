@@ -15,12 +15,10 @@ exports.addCrew = async (req, res, next)=> {
     let arr = []
     try{
      const crew = await Crew.create({name, type})
-     console.log(crew)
      for(let i =0; i<req.body.movie.length; i++){
         let movieList = {
             movie: req.body.movie[i],
-            rating: req.body.rating[i],
-            budget: req.body.budget[i]
+            rating: +(req.body.rating[i])   
         }
         arr.push(movieList)
         
@@ -41,13 +39,12 @@ exports.getNewMoviePage = async (req, res, next)=> {
         const producers = await Crew.find({type: "Producer"})
         const actors = await Crew.find({type: "Actor"})
         const actress = await Crew.find({type: "Actress"})
-        const music = await Crew.find({type: "Music Director"})
+        const castingDir = await Crew.find({type: "Casting Director"})
         const writers = await Crew.find({type: "Writer"})
         const movieNumber= await Movie.countDocuments()
-        console.log(movieNumber)
         res.render('new-movie', {
             user: req.session,
-            directors, producers, actors, actress, music, writers, movieNumber
+            directors, producers, actors, actress, castingDir, writers, movieNumber
         
         })       
     }catch(e){
@@ -57,15 +54,13 @@ exports.getNewMoviePage = async (req, res, next)=> {
 }
 exports.addMovie = async (req, res, next)=> {
     try{
-        let data = new Date(req.body.realeaseDate).getFullYear();
-        // data = data.getDay();
-        console.log(data)
-        if(data < 2023){
+        let data = new Date(req.body.realeaseDate)
+        let today = new Date();
+        if(today > data){
             return res.send("invalid date")    
         }
-        console.log(req.body)
-        const {title, movieID, director, producer, actor, actress, musicDirector, writer, realeaseDate, budget} = req.body
-        const movie = await Movie.create({title, movieID, director, producer, actor, actress, musicDirector, writer, realeaseDate, budget})
+        const {title, movieID, director, producer, actor, actress, castingDirector, writer, realeaseDate, budget} = req.body
+        const movie = await Movie.create({title, movieID, director, producer, actor, actress, castingDirector, writer, realeaseDate, budget})
         res.send(movie)
     }catch(e){
         console.log(e)
@@ -84,20 +79,19 @@ exports.getPredictionPage = async (req, res, next)=> {
 }
 exports.checkPrediction = async(req, res, next)=>{
     //check prediction by movie name or ID
-    let directorStar = 0, producerStar= 0, actorStar = 0, actressStar =0, writerStar=0, musicStar=0, dateStar=0, budgetStar=0, movieRating
+    try{
+        let directorStar = 0, producerStar= 0, actorStar = 0, actressStar =0, writerStar=0, castingDirStar=0, dateStar=0, budgetStar=0, movieRating
     const {title} = req.body
     const data =  await Movie.findOne({$or: [{title}, {movieID: title}]})
-    // console.log(data)
+    if(!data) return res.send(`Movie Not Found & ${title}`)
     const director = await Crew.findOne({type: "Director", name: data.director})
-
     const producer = await Crew.findOne({type: "Producer", name: data.producer})
     const actor = await Crew.findOne({type: "Actor", name: data.actor})
     const actress = await Crew.findOne({type: "Actress", name: data.actress})
     const writer= await Crew.findOne({type: "Writer", name: data.writer})
-    const music = await Crew.findOne({type: "Music Director", name: data.musicDirector})
-    // console.log(producer.movieList)
-let arr = [director.movieList, producer.movieList, actor.movieList, actress.movieList, writer.movieList, music.movieList ]
-function calculateRating(array, property) {
+    const castingDir = await Crew.findOne({type: "Casting Director", name: data.castingDirector})
+    let arr = [director.movieList, producer.movieList, actor.movieList, actress.movieList, writer.movieList, castingDir.movieList ]
+    function calculateRating(array, property) {
     const total = array.reduce((accumulator, object) => {
       return accumulator + object[property];
     }, 0);
@@ -105,15 +99,7 @@ function calculateRating(array, property) {
     return total;
   }
 for(let item of arr){
-
-    // for(let i=0; i<item.length; i++){
-//    let dummy = item[i]
-//    console.log(dummy.rating)
-//    console.log(i)
-// console.log(item)
     if(item == arr[0]){
-        console.log(item.length)
-        console.log('here')
         directorStar= calculateRating(item, 'rating')/item.length;
     }
     if(item == arr[1]){
@@ -130,14 +116,12 @@ for(let item of arr){
         writerStar= calculateRating(item, 'rating')/item.length;
     }
     if(item == arr[5]){
-        musicStar= calculateRating(item, 'rating')/item.length;
+        castingDirStar= calculateRating(item, 'rating')/item.length;
     }
     
 // }
 }
-console.log(directorStar)
-console.log(producerStar)
-console.log(actorStar)
+
 
 var dayOfWeek = data.realeaseDate.getDay();
 var isWeekend = (dayOfWeek === 6) || (dayOfWeek  === 0); // 6 = Saturday, 0 = Sunday
@@ -151,7 +135,7 @@ if(data.budget >= 5000000){
 }else{
     budgetStar = 0.5
 }
-movieRating = directorStar + producerStar + actorStar + actressStar + writerStar + musicStar + dateStar + budgetStar
+movieRating = directorStar + producerStar + actorStar + actressStar + writerStar + castingDirStar + dateStar + budgetStar
 const result =(movieRating/8)
 if(result<0.5){
     return res.send(`Flop & ${data.movieID}`)
@@ -161,4 +145,9 @@ if(result<0.5){
     res.send(`Super Hit & ${data.movieID}`)
 }
 
+    }catch(e){
+        console.log(e)
+        res.render('error-503', {error: "Something went wrong, Try again"})
+    }
+    
 }

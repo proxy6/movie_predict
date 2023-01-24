@@ -1,16 +1,16 @@
-const { Movie } = require("../models/movies.model")
+const { Crew } = require("../models/crew.model")
 
 exports.dashboard = async (req, res, next)=> {
     const {email, password} = req.body
     try{
-       const directors = await Movie.countDocuments({type: "Director"})
-       const producers = await Movie.countDocuments({type: "Producer"})
-       const actors = await Movie.countDocuments({type: "Actor"})
-       const actress = await Movie.countDocuments({type: "Actress"})
-       const writers = await Movie.countDocuments({type: "Writer"})
-       const music = await Movie.countDocuments({type: "Music Director"})
-       console.log(directors)
-       res.render('dashboard', {user: req.session, directors, producers, actors, actress, writers, music})       
+       const directors = await Crew.countDocuments({type: "Director"})
+       const producers = await Crew.countDocuments({type: "Producer"})
+       const actors = await Crew.countDocuments({type: "Actor"})
+       const actress = await Crew.countDocuments({type: "Actress"})
+       const writers = await Crew.countDocuments({type: "Writer"})
+       const castingDir = await Crew.countDocuments({type: "Casting Director"})
+  
+       res.render('dashboard', {user: req.session, directors, producers, actors, actress, writers, castingDir})       
     }catch(e){
         console.log(e)
         res.render('error-503', {error: "Something went wrong, Try again"})

@@ -26,7 +26,7 @@ a.meanmenu-reveal{display:none}
 	width: 100%;
 	list-style-type: none;
 	overflow-y: scroll;
-	height: 344px;
+	/* height: 344px; */
 	overflow-x: hidden;
 }
 .mean-container .mean-nav ul ul {
