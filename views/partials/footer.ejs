@@ -108,19 +108,16 @@ e.preventDefault();
      
 $('#checkPrediction').submit(function(e) {
          var dataString = $(this).serialize();
-         console.log(dataString)
          $.ajax({
            type: "POST",
            url: "/check-prediction",
            data: dataString,
         success: function (resp) {
-            console.log(resp)
             let response = resp.split('&')
             let responseID = response[1]
+            let responseTitle = response[2]
             response = response[0].trim();
-           
-            console.log(response)
-            console.log(response[1])
+
             if(response == "Movie Not Found"){
                 console.log(response)
                 Swal.fire({
@@ -133,7 +130,7 @@ $('#checkPrediction').submit(function(e) {
                 Swal.fire({
                 icon: 'error',
                 title: 'Flop',
-                text: `The movie with ID ${responseID} will probably flop based on historical data`,
+                text: `The movie "${responseTitle}" with ID ${responseID} will probably flop based on historical data`,
                 })
             // setTimeout(location.reload.bind(location), 1000);
            
@@ -141,13 +138,13 @@ $('#checkPrediction').submit(function(e) {
                 Swal.fire({
                 icon: 'success',
                 title: 'Hit',
-                text: `The movie with ID ${responseID} will hit based on historical data`,
+                text: `The movie "${responseTitle}" with ID ${responseID} will hit based on historical data`,
                 })
             }else {
                 Swal.fire({
                 icon: 'success',
                 title: 'Super Hit',
-                text: `The movie with ID ${responseID} will super hit based on historical data`,
+                text: `The movie "${responseTitle}"  with ID ${responseID} will super hit based on historical data`,
                 })
             }
         }

@@ -83,7 +83,6 @@ exports.checkPrediction = async(req, res, next)=>{
         let directorStar = 0, producerStar= 0, actorStar = 0, actressStar =0, writerStar=0, castingDirStar=0, dateStar=0, budgetStar=0, movieRating
     const {title} = req.body
     const data =  await Movie.findOne({$or: [{title}, {movieID: title}]})
-    // console.log(data)
     if(data == null)   return res.send(`Movie Not Found & ${title}`)
     const director = await Crew.findOne({type: "Director", name: data.director})
     const producer = await Crew.findOne({type: "Producer", name: data.producer})
@@ -139,22 +138,14 @@ if(data.budget >= 5000000){
     budgetStar = 0.5
 }
 movieRating = directorStar + producerStar + actorStar + actressStar + writerStar + castingDirStar + dateStar + budgetStar
-console.log(directorStar)
-console.log(producerStar)
-console.log(actorStar)
-console.log(writerStar)
-console.log(actressStar)
-console.log(castingDirStar)
-console.log(budgetStar)
-console.log(dateStar)
+
 const result =(movieRating/8)
-console.log(result)
 if(result<0.5){
-    return res.send(`Flop & ${data.movieID}`)
+    return res.send(`Flop & ${data.movieID} & ${data.title}`)
 }else if(result > 0.5 && result < 0.8){
-    return res.send(`Hit & ${data.movieID}`)
+    return res.send(`Hit & ${data.movieID} & ${data.title}`)
 }else {
-    return res.send(`Super Hit & ${data.movieID}`)
+    return res.send(`Super Hit & ${data.movieID} & ${data.title}`)
 }
 
     }catch(e){
