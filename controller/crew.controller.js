@@ -83,7 +83,8 @@ exports.checkPrediction = async(req, res, next)=>{
         let directorStar = 0, producerStar= 0, actorStar = 0, actressStar =0, writerStar=0, castingDirStar=0, dateStar=0, budgetStar=0, movieRating
     const {title} = req.body
     const data =  await Movie.findOne({$or: [{title}, {movieID: title}]})
-    if(!data) return res.send(`Movie Not Found & ${title}`)
+    // console.log(data)
+    if(data == null)   return res.send(`Movie Not Found & ${title}`)
     const director = await Crew.findOne({type: "Director", name: data.director})
     const producer = await Crew.findOne({type: "Producer", name: data.producer})
     const actor = await Crew.findOne({type: "Actor", name: data.actor})
@@ -91,6 +92,7 @@ exports.checkPrediction = async(req, res, next)=>{
     const writer= await Crew.findOne({type: "Writer", name: data.writer})
     const castingDir = await Crew.findOne({type: "Casting Director", name: data.castingDirector})
     let arr = [director.movieList, producer.movieList, actor.movieList, actress.movieList, writer.movieList, castingDir.movieList ]
+   
     function calculateRating(array, property) {
     const total = array.reduce((accumulator, object) => {
       return accumulator + object[property];
@@ -100,24 +102,25 @@ exports.checkPrediction = async(req, res, next)=>{
   }
 for(let item of arr){
     if(item == arr[0]){
-        directorStar= calculateRating(item, 'rating')/item.length;
+        directorStar= calculateRating(item, 'rating')/40;
     }
     if(item == arr[1]){
         
-        producerStar= calculateRating(item, 'rating')/item.length;
+        producerStar= calculateRating(item, 'rating')/40;
     }
     if(item == arr[2]){
-        actorStar= calculateRating(item, 'rating')/item.length;
+        actorStar= calculateRating(item, 'rating')/40;
     }
     if(item == arr[3]){
-        actressStar= calculateRating(item, 'rating')/item.length;
+        actressStar= calculateRating(item, 'rating')/40;
     }
     if(item == arr[4]){
-        writerStar= calculateRating(item, 'rating')/item.length;
+        writerStar= calculateRating(item, 'rating')/40;
     }
     if(item == arr[5]){
-        castingDirStar= calculateRating(item, 'rating')/item.length;
+        castingDirStar= calculateRating(item, 'rating')/40;
     }
+    console.log(item.length)
     
 // }
 }
@@ -136,13 +139,22 @@ if(data.budget >= 5000000){
     budgetStar = 0.5
 }
 movieRating = directorStar + producerStar + actorStar + actressStar + writerStar + castingDirStar + dateStar + budgetStar
+console.log(directorStar)
+console.log(producerStar)
+console.log(actorStar)
+console.log(writerStar)
+console.log(actressStar)
+console.log(castingDirStar)
+console.log(budgetStar)
+console.log(dateStar)
 const result =(movieRating/8)
+console.log(result)
 if(result<0.5){
     return res.send(`Flop & ${data.movieID}`)
 }else if(result > 0.5 && result < 0.8){
-    res.send(`Hit & ${data.movieID}`)
+    return res.send(`Hit & ${data.movieID}`)
 }else {
-    res.send(`Super Hit & ${data.movieID}`)
+    return res.send(`Super Hit & ${data.movieID}`)
 }
 
     }catch(e){

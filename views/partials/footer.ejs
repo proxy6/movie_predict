@@ -105,7 +105,8 @@ e.preventDefault();
 e.preventDefault();
 });
 
-        $('#checkPrediction').submit(function(e) {
+     
+$('#checkPrediction').submit(function(e) {
          var dataString = $(this).serialize();
          console.log(dataString)
          $.ajax({
@@ -113,34 +114,40 @@ e.preventDefault();
            url: "/check-prediction",
            data: dataString,
         success: function (resp) {
+            console.log(resp)
             let response = resp.split('&')
-            if(response[0] == "Flop"){
+            let responseID = response[1]
+            response = response[0].trim();
+           
+            console.log(response)
+            console.log(response[1])
+            if(response == "Movie Not Found"){
+                console.log(response)
+                Swal.fire({
+                icon: 'error',
+                title: 'Movie Not Found',
+                text: `The movie with ID ${responseID} was not found in the database. Please add the movie before checking prediction`,
+                })
+            }else if (response == "Flop"){
                 console.log(response)
                 Swal.fire({
                 icon: 'error',
                 title: 'Flop',
-                text: `The movie with ID ${response[1]} will probably flop based on historical data`,
+                text: `The movie with ID ${responseID} will probably flop based on historical data`,
                 })
             // setTimeout(location.reload.bind(location), 1000);
-            
-            }else if(response[0] == "Hit"){
+           
+            }else if(response == "Hit"){
                 Swal.fire({
                 icon: 'success',
                 title: 'Hit',
-                text: `The movie with ID ${response[1]} will hit based on historical data`,
+                text: `The movie with ID ${responseID} will hit based on historical data`,
                 })
-            }
-            else if(response[0] == "Super Hit") {
+            }else {
                 Swal.fire({
                 icon: 'success',
                 title: 'Super Hit',
-                text: `The movie with ID ${response[1]} will super hit based on historical data`,
-                })
-            }else{
-                Swal.fire({
-                icon: 'error',
-                title: 'Movie Not Found',
-                text: `The movie with ID ${response[1]} have not been added in the database`,
+                text: `The movie with ID ${responseID} will super hit based on historical data`,
                 })
             }
         }
